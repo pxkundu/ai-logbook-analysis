@@ -1,0 +1,22 @@
+{
+  "name": "ai-logbook-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.7.7",
+    "tailwindcss": "^3.4.13",
+    "react-router-dom": "^6.26.2",
+    "chart.js": "^4.4.4"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1",
+    "jest": "^29.7.0",
+    "@testing-library/react": "^16.0.1"
+  }
+}

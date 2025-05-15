@@ -1,0 +1,61 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/example/ai-logbook-analysis.git'
+      }
+    }
+    stage('Lint') {
+      steps {
+        sh 'flake8 backend'
+        sh 'npm run lint --prefix frontend'
+      }
+    }
+    stage('Static Analysis') {
+      steps {
+        sh 'sonar-scanner'
+      }
+    }
+    stage('Security Scan') {
+      steps {
+        sh 'checkov -d infrastructure'
+        sh 'trivy image ai-logbook-backend'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker build -t ai-logbook-backend backend/services/ingestion'
+        sh 'npm run build --prefix frontend'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'pytest backend/services/ingestion/tests'
+        sh 'npm test --prefix frontend'
+      }
+    }
+    stage('Deploy Infrastructure') {
+      steps {
+        sh 'terraform init'
+        sh 'terraform apply -var-file=environments/dev/variables.tfvars -auto-approve'
+      }
+    }
+    stage('Deploy Application') {
+      steps {
+        sh 'aws lambda update-function-code --function-name ingestion --zip-file fileb://backend.zip'
+        sh 'aws s3 sync frontend/build s3://frontend-bucket'
+      }
+    }
+    stage('Security Validation') {
+      steps {
+        sh 'aws configservice describe-compliance-by-config-rule'
+      }
+    }
+    stage('Notify') {
+      steps {
+        sh 'aws sns publish --topic-arn arn:aws:sns:us-east-1:123456789012:build-notifications --message "Build completed"'
+      }
+    }
+  }
+}
