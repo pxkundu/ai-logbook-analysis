@@ -1,0 +1,135 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+dist/
+build/
+*.whl
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+
+# Node.js / ReactJS
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+/frontend/build/
+/frontend/dist/
+*.log
+coverage/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.backup
+crash.log
+*.lock.hcl
+
+# Docker
+*.dockerignore
+Dockerfile.*
+*.tar.gz
+*.tar
+*.gz
+
+# Jenkins / CI/CD
+.jenkins/
+*.bak
+*.tmp
+*.temp
+/cicd/jenkins/*.log
+/cicd/jenkins/workspace/
+
+# AWS
+.aws/
+*.pem
+*.key
+*.crt
+*.csr
+*.cert
+*.credentials
+aws_config
+aws_credentials
+
+# Sensitive Configurations
+*.env
+.env.*
+!.env.example
+*.secret
+*.secrets
+config/*.json
+config/*.yaml
+config/*.yml
+secrets/
+credentials/
+*.tfvars
+!infrastructure/environments/*/*.tfvars.example
+
+# Documentation
+/docs/**/*.pdf
+/docs/**/*.docx
+/docs/**/*.bak
+
+# Editor and IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# OS-specific
+.DS_Store
+Thumbs.db
+*.DS_Store
+desktop.ini
+
+# Logs
+*.log
+logs/
+*.log.*
+log/
+
+# Miscellaneous
+*.bak
+*.tmp
+*.temp
+*.swp
+*.swo
+*.cache
+.cache/
+tmp/
+temp/
+
+# Build Artifacts
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Testing
+.coverage
+coverage.xml
+nosetests.xml
+junit.xml
+*.cover
+*.lcov
+*.profraw
+*.profdata

@@ -1,31 +1,12 @@
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-  backend "s3" {
-    bucket         = "ai-logbook-terraform-state"
-    key            = "state/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
 module "s3" {
-  source      = "./modules/s3"
+  source      = "../../modules/s3"
   bucket_name = var.bucket_name
   environment = var.environment
+  kms_key_id  = module.security.kms_key_id
 }
 
 module "lambda" {
-  source            = "./modules/lambda"
+  source            = "../../modules/lambda"
   function_name     = "ingestion"
   environment       = var.environment
   s3_bucket         = module.s3.bucket_name
@@ -34,7 +15,7 @@ module "lambda" {
 }
 
 module "glue" {
-  source            = "./modules/glue"
+  source            = "../../modules/glue"
   job_name          = "etl-job"
   environment       = var.environment
   s3_bucket         = module.s3.bucket_name
@@ -42,14 +23,15 @@ module "glue" {
 }
 
 module "textract" {
-  source            = "./modules/textract"
+  source            = "../../modules/textract"
   environment       = var.environment
   s3_bucket         = module.s3.bucket_name
+  lambda_arn        = module.lambda.function_arn
   role_arn          = module.security.textract_role_arn
 }
 
 module "rds" {
-  source            = "./modules/rds"
+  source            = "../../modules/rds"
   db_name           = "logbookdb"
   environment       = var.environment
   instance_class    = var.rds_instance_class
@@ -58,6 +40,6 @@ module "rds" {
 }
 
 module "security" {
-  source      = "./modules/security"
+  source      = "../../modules/security"
   environment = var.environment
 }
