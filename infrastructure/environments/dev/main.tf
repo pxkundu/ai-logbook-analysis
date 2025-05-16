@@ -35,11 +35,15 @@ module "rds" {
   db_name           = "logbookdb"
   environment       = var.environment
   instance_class    = var.rds_instance_class
-  master_username   = var.rds_master_username
-  master_password   = var.rds_master_password
 }
 
 module "security" {
   source      = "../../modules/security"
   environment = var.environment
+}
+
+module "monitoring" {
+  source              = "../../modules/monitoring"
+  environment         = var.environment
+  lambda_function_name = "ingestion-${var.environment}"
 }

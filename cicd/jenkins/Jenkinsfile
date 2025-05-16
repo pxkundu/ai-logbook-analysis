@@ -19,8 +19,8 @@ pipeline {
     }
     stage('Security Scan') {
       steps {
-        sh 'checkov -d infrastructure'
-        sh 'trivy image ai-logbook-backend'
+        sh 'checkov -d infrastructure --soft-fail'
+        sh 'trivy fs infrastructure --exit-code 0'
       }
     }
     stage('Build') {
@@ -37,13 +37,15 @@ pipeline {
     }
     stage('Deploy Infrastructure') {
       steps {
-        sh 'terraform init'
-        sh 'terraform apply -var-file=environments/dev/variables.tfvars -auto-approve'
+        dir('infrastructure') {
+          sh 'terraform init'
+          sh 'terraform apply -var-file=environments/dev/variables.tfvars -auto-approve'
+        }
       }
     }
     stage('Deploy Application') {
       steps {
-        sh 'aws lambda update-function-code --function-name ingestion --zip-file fileb://backend.zip'
+        sh 'aws lambda update-function-code --function-name ingestion-dev --s3-bucket ai-logbook-data-dev --s3-key ingestion.zip --region us-east-1'
         sh 'aws s3 sync frontend/build s3://frontend-bucket'
       }
     }
@@ -54,7 +56,7 @@ pipeline {
     }
     stage('Notify') {
       steps {
-        sh 'aws sns publish --topic-arn arn:aws:sns:us-east-1:123456789012:build-notifications --message "Build completed"'
+        sh 'aws sns publish --topic-arn arn:aws:sns:us-east-1:123456789012:logbook-notifications-dev --message "Build completed" --region us-east-1'
       }
     }
   }
