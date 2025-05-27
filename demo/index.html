@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Logbook Analysis - Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-800">AI Logbook Analysis</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900">Features</a>
+                    <a href="#architecture" class="text-gray-600 hover:text-gray-900">Architecture</a>
+                    <a href="#demo" class="text-gray-600 hover:text-gray-900">Demo</a>
+                    <a href="https://github.com/pxkundu/ai-logbook-analysis" target="_blank" class="text-gray-600 hover:text-gray-900">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                    AI-Powered Logbook Analysis
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-xl text-gray-500">
+                    Transform handwritten logbooks into structured, searchable data using advanced AI and AWS services.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Handwritten Text Extraction</h3>
+                    <p class="text-gray-600">Advanced AWS Textract integration for accurate extraction of handwritten text from logbooks.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Data Validation</h3>
+                    <p class="text-gray-600">Automated validation of extracted data to ensure accuracy and consistency.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">ETL Processing</h3>
+                    <p class="text-gray-600">Efficient Extract, Transform, Load pipeline for data processing and storage.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Modern Web Interface</h3>
+                    <p class="text-gray-600">User-friendly React-based interface for document management and data visualization.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Secure Storage</h3>
+                    <p class="text-gray-600">AWS S3 integration for secure document storage and management.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Scalable Architecture</h3>
+                    <p class="text-gray-600">Microservices-based architecture for high scalability and maintainability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">System Architecture</h2>
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <pre class="text-sm overflow-x-auto">
+[Client Browser] <---> [CloudFront] <---> [S3 Static Hosting]
+                              |
+                              v
+[Document Upload] --> [API Gateway] --> [Lambda Functions]
+                              |
+                              v
+[Document Processing Pipeline]
+    |
+    |--> [S3 Raw Storage] --> [Textract] --> [S3 Processed]
+    |         |                    |              |
+    |         v                    v              v
+    |--> [Validation Service] --> [ETL Service] --> [RDS Database]
+    |         |                    |              |
+    |         v                    v              v
+    |--> [CloudWatch Logs] <-- [CloudWatch Metrics] <-- [CloudWatch Alarms]
+    |
+    v
+[Notification Service (SNS/SES)]
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Live Demo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Document Upload</h3>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <p class="text-gray-600">Drag and drop your logbook here or click to upload</p>
+                        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Upload Document
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Extracted Data Preview</h3>
+                    <div class="bg-gray-50 p-4 rounded">
+                        <pre class="text-sm">
+{
+    "document_id": "LOG-2024-001",
+    "extracted_text": "Sample extracted text...",
+    "confidence_score": 0.95,
+    "processed_date": "2024-03-20"
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About</h3>
+                    <p class="text-gray-400">AI-powered system for analyzing handwritten logbooks and service records.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/pxkundu/ai-logbook-analysis" class="text-gray-400 hover:text-white">GitHub Repository</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="#architecture" class="text-gray-400 hover:text-white">Architecture</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <p class="text-gray-400">For support or inquiries, please open an issue on GitHub.</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>&copy; 2024 AI Logbook Analysis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
